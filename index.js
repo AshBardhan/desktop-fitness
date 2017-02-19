@@ -1,92 +1,78 @@
 var exerciseList = [
     {
         name: 'Shoulder Tilt',
-        id: 'shoulder',
-        repTime: 3
+        id: 'shoulder'
     },
     {
         name: 'Neck Tilt - Horizontal',
-        id: 'neck-h',
-        repTime: 3
+        id: 'neck-h'
     },
     {
         name: 'Neck Tilt - Vertical',
         id: 'neck-v',
-        isSideView: true,
-        repTime: 3
+        isSideView: true
     },
     {
         name: 'Arms Stretch - Horizontal',
-        id: 'arm-h',
-        repTime: 5
+        id: 'arm-h'
     },
     {
         name: 'Arms Stretch - Vertical',
         id: 'arm-v',
-        isSideView: true,
-        repTime: 5
+        isSideView: true
     },
     {
         name: 'Sitting Plank',
         id: 'leg',
-        isSideView: true,
-        repTime: 5
+        isSideView: true
     },
     {
         name: 'Sitting Tricep',
         id: 'tricep',
-        isSideView: true,
-        repTime: 5
+        isSideView: true
     },
     {
         name: 'Jogging',
         id: 'jog',
-        isSideView: true,
-        repTime: 2
+        isSideView: true
     },
     {
         name: 'Plank',
         id: 'plank',
-        isSideView: true,
-        repTime: 3
+        isSideView: true
     },
     {
         name: 'Desk Pushup',
         id: 'push',
-        isSideView: true,
-        repTime: 3
+        isSideView: true
     }
 ];
 
-var count, reps;
+
+exerciseList.length = 5;
+
+var count;
 var currentWorkoutIndex = -1;
 var storedName = '';
 
-function setWorkoutCountDown(repTime) {
+function setWorkoutCountDown() {
     count = 30;
-    reps = -1;
 
     (function loop() {
         if (count > 0) {
             $('#exercise-countdown').text(count);
-
-            if (count % repTime === 0) {
-                $('#exercise-reps').text(++reps);
-            }
-
             count -= 1;
             setTimeout(loop, 1000);
         } else if (count === 0) {
             $('#exercise-countdown').text(count);
-            $('#exercise-reps').text(++reps);
 
             if (currentWorkoutIndex + 1 < exerciseList.length) {
                 $('#fitness-exercise').removeClass();
                 onExerciseChange(++currentWorkoutIndex);
             } else {
                 $('#fitness-exercise').removeClass().addClass('exercise--yay');
-                $('#exercise-text, #exercise-countdown, #exercise-reps').hide();
-                $('.stick-man').removeClass('stick-man--side');
+                $('#exercise-text, #exercise-countdown').hide();
+                $('.stick-figure').removeClass('stick-figure--side');
                 $('#fitness-intro').show().text('Well done, ' + storedName + '!');
                 $('#fitness-start').show().text('Restart Again');
                 currentWorkoutIndex = -1;
@@ -102,13 +88,13 @@ function onExerciseChange(exerciseIndex) {
 
     $('#fitness-exercise').removeClass().addClass('exercise--' + exercise.id);
     $('#exercise-text').text(exercise.name);
-    $('.stick-man').removeClass('stick-man--side');
+    $('.stick-figure').removeClass('stick-figure--side');
 
     if (exercise.isSideView) {
-        $('.stick-man').addClass('stick-man--side');
+        $('.stick-figure').addClass('stick-figure--side');
     }
 
-    setWorkoutCountDown(exercise.repTime);
+    setWorkoutCountDown();
 }
 
 function init() {
@@ -120,14 +106,16 @@ function init() {
     } else {
         $('#fitness-form').hide();
         $('#fitness-exercise').show().removeClass().addClass('exercise--hi');
-        $('#exercise-text, #exercise-countdown, #exercise-reps').hide();
+        $('#exercise-text, #exercise-countdown').hide();
         $('#fitness-intro').show().text('Hi, ' + storedName + '!');
         $('#fitness-start').show();
     }
 }
 
 function addEventListeners() {
-    $('#fitness-form').on('click', '#btn-submit', function () {
+    $('#fitness-form').submit(function (e) {
+        e.preventDefault();
+        console.log('hello!')
         var name = $('input').val();
         if (name) {
             localStorage.setItem('name', JSON.stringify(name));
@@ -138,7 +126,7 @@ function addEventListeners() {
 
     $('#fitness-start').on('click', function () {
         $('#fitness-intro, #fitness-start').hide();
-        $('#exercise-text, #exercise-countdown, #exercise-reps').show();
+        $('#exercise-text, #exercise-countdown').show();
         onExerciseChange(++currentWorkoutIndex);
     });
 }

@@ -8,27 +8,27 @@
 </head>
 <body>
     <h1 id="fitness-title">Fitness Buddy</h1>
-    <div id="fitness-form">
+    <form id="fitness-form" class="hide">
         <label>Name</label>
         <input type="text" name="name" />
-        <div id="btn-submit">Submit</div>
-    </div>
+    </form>
 
-    <div id="fitness-exercise">
+    <div id="fitness-exercise" class="hide">
         <div id="fitness-intro"></div>
-        <div id="fitness-start">Start your Workout</div>
-        <div class="chair"></div>
-        <div class="table"></div>
-        <div class="stick-figure">
-            <div class="stick-figure__head"></div>
-            <div class="stick-figure__arm-left"></div>
-            <div class="stick-figure__arm-right"></div>
-            <div class="stick-figure__leg-left"></div>
-            <div class="stick-figure__leg-right"></div>
+        <div id="fitness-characters">
+            <div class="chair"></div>
+            <div class="table"></div>
+            <div class="stick-figure">
+                <div class="stick-figure__head"></div>
+                <div class="stick-figure__arm-left"></div>
+                <div class="stick-figure__arm-right"></div>
+                <div class="stick-figure__leg-left"></div>
+                <div class="stick-figure__leg-right"></div>
+            </div>
         </div>
+        <div id="fitness-start">Start your Workout</div>
         <div id="exercise-text"></div>
         <div id="exercise-countdown"></div>
-        <div id="exercise-reps"></div>
     </div>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script>
