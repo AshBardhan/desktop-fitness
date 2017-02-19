@@ -65,10 +65,10 @@ function setWorkoutCountDown() {
                 switchToNextExercise();
             } else {
                 $('#fitness-exercise').removeClass().addClass('exercise--yay');
-                $('#exercise-text, #exercise-countdown').hide();
+                $('#exercise-text, #exercise-countdown, #exercise-progress').hide();
                 $('.stick-figure').removeClass('stick-figure--side');
                 $('#fitness-intro').show().text('Well done, ' + storedName + '!');
-                $('#fitness-start').show().text('Restart Again');
+                $('#fitness-options').show();
                 currentWorkoutIndex = -1;
             }
             return false;
@@ -115,6 +115,8 @@ function onExerciseChange(exerciseIndex) {
     $('#fitness-exercise').removeClass().addClass('exercise--' + exercise.id);
     $('#exercise-text').text(exercise.name);
     $('.stick-figure').removeClass('stick-figure--side');
+    $('.progress-bar').removeClass('progress-bar--current');
+    $('.progress-bar:eq(' + exerciseIndex + ')').addClass('progress-bar--current');
 
     if (exercise.isSideView) {
         $('.stick-figure').addClass('stick-figure--side');
@@ -134,8 +136,16 @@ function init() {
         $('#fitness-exercise').show().removeClass().addClass('exercise--hi');
         $('#exercise-text, #exercise-countdown').hide();
         $('#fitness-intro').show().text(getGreetingsText() + storedName + '!');
-        $('#fitness-start').show();
+        $('#fitness-options').show();
     }
+}
+
+function generateExerciseProgress() {
+    var progressBars = '';
+    for (var i = 0; i < exerciseList.length; i++) {
+        progressBars += '<div class="progress-bar"></div>'
+    }
+    $('#exercise-progress').html(progressBars).show();
 }
 
 function addEventListeners() {
@@ -150,9 +160,10 @@ function addEventListeners() {
         }
     });
 
-    $('#fitness-start').on('click', function () {
-        $('#fitness-intro, #fitness-start').hide();
+    $('#btn-start').on('click', function () {
+        $('#fitness-intro, #fitness-options').hide();
         $('#exercise-text, #exercise-countdown').show();
+        generateExerciseProgress();
         onExerciseChange(++currentWorkoutIndex);
     });
 }
