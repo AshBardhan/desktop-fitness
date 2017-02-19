@@ -49,8 +49,6 @@ var exerciseList = [
 ];
 
 
-exerciseList.length = 5;
-
 var count;
 var currentWorkoutIndex = -1;
 var storedName = '';
@@ -58,17 +56,14 @@ var storedName = '';
 function setWorkoutCountDown() {
     count = 30;
 
-    (function loop() {
-        if (count > 0) {
+    (function workoutLoop() {
+        if (count >= 0) {
             $('#exercise-countdown').text(count);
             count -= 1;
-            setTimeout(loop, 1000);
-        } else if (count === 0) {
-            $('#exercise-countdown').text(count);
-
+            setTimeout(workoutLoop, 1000);
+        } else {
             if (currentWorkoutIndex + 1 < exerciseList.length) {
-                $('#fitness-exercise').removeClass();
-                onExerciseChange(++currentWorkoutIndex);
+                switchToNextExercise();
             } else {
                 $('#fitness-exercise').removeClass().addClass('exercise--yay');
                 $('#exercise-text, #exercise-countdown').hide();
@@ -77,7 +72,23 @@ function setWorkoutCountDown() {
                 $('#fitness-start').show().text('Restart Again');
                 currentWorkoutIndex = -1;
             }
+            return false;
+        }
+    })();
+}
+
+function switchToNextExercise() {
+    $('#fitness-exercise').removeClass().addClass('exercise--rest');
+    $('#exercise-text').text('Break Time');
+    var restCount = 5;
+
+    (function restingLoop() {
+        if (restCount >= 0) {
+            $('#exercise-countdown').text(restCount);
+            restCount -= 1;
+            setTimeout(restingLoop, 1000);
         } else {
+            onExerciseChange(++currentWorkoutIndex);
             return false;
         }
     })();
