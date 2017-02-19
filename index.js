@@ -48,7 +48,6 @@ var exerciseList = [
     }
 ];
 
-
 var count;
 var currentWorkoutIndex = -1;
 var storedName = '';
@@ -94,6 +93,22 @@ function switchToNextExercise() {
     })();
 }
 
+function getGreetingsText() {
+    var currentTime = new Date(),
+        dayText = 'Good ',
+        hour = currentTime.getHours();
+
+    if (hour >= 5 && hour < 12) {
+        dayText += 'Morning';
+    } else if (hour >= 12 && hour < 5) {
+        dayText += 'Afternoon';
+    } else {
+        dayText += 'Evening';
+    }
+
+    return dayText + ', ';
+}
+
 function onExerciseChange(exerciseIndex) {
     var exercise = exerciseList[exerciseIndex];
 
@@ -118,7 +133,7 @@ function init() {
         $('#fitness-form').hide();
         $('#fitness-exercise').show().removeClass().addClass('exercise--hi');
         $('#exercise-text, #exercise-countdown').hide();
-        $('#fitness-intro').show().text('Hi, ' + storedName + '!');
+        $('#fitness-intro').show().text(getGreetingsText() + storedName + '!');
         $('#fitness-start').show();
     }
 }
