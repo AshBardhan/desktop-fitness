@@ -1,0 +1,22 @@
+{
+  "name": "desktop-fitness",
+  "version": "1.0.0",
+  "description": "Your Fitness Buddy",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "fitness",
+    "hackathon",
+    "desktop"
+  ],
+  "author": "AshBardhan",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-sass": "~0.18.0",
+    "electron": "^1.4.1"
+  }
+}

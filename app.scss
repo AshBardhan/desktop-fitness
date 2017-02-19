@@ -1,0 +1,848 @@
+$skin-color: #ffe0bd;
+$shirt-color: #0089CB;
+$short-color: #25292C;
+
+body {
+  background-color: #45b155;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#fitness-title {
+  text-align: center;
+  letter-spacing: 3px;
+  margin-top: 40px;
+}
+
+#fitness-form, #fitness-exercise {
+  position: absolute;
+  top: calc(50% - 110px);
+  left: calc(50% - 200px);
+  width: 400px;
+  height: 220px;
+}
+
+label, input {
+  width: 100%;
+}
+
+input {
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid #fff;
+  font-size: 20px;
+  color: #fff;
+  margin: 10px 0 30px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+#btn-submit {
+  color: #fff;
+  margin: 0 auto;
+  cursor: pointer;
+  width: 80px;
+  text-align: center;;
+
+  &:hover {
+    color: #ddd;
+  }
+}
+
+#exercise-text {
+  text-align: center;
+  font-size: 20px;
+  bottom: -35px;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+#fitness-intro, #fitness-start {
+  position: absolute;
+  left: calc(50% - 130px);
+  width: 260px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 20px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+#fitness-intro {
+  top: -40px;
+}
+
+#fitness-start {
+  bottom: -40px;
+  cursor: pointer;
+
+  &:hover {
+    color: #ddd;
+  }
+}
+
+#exercise-countdown, #exercise-reps {
+  width: 220px;
+  height: 220px;
+  line-height: 220px;
+  font-size: 180px;
+  text-align: center;
+  position: absolute;
+  letter-spacing: -3px;
+
+  &:before, &:after {
+    position: absolute;
+    left: 0;
+    width: inherit;
+    height: 30px;
+    line-height: 30px;
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+
+  &:before {
+    top: -30px;
+  }
+
+  &:after {
+    bottom: -30px;
+  }
+}
+
+#exercise-countdown {
+  left: -220px;
+
+  &:before {
+    content: 'Time Left';
+  }
+
+  &:after {
+    content: 'Seconds';
+  }
+}
+
+#exercise-reps {
+  right: -220px;
+
+  &:before {
+    content: 'Rep';
+  }
+
+  &:after {
+    content: 'Count';
+  }
+}
+
+.chair {
+  width: 40px;
+  height: 80px;
+  border-left: 5px solid #a5592d;
+  border-bottom: 5px solid #a5592d;
+  box-sizing: border-box;
+  position: absolute;
+  left: calc(50% - 30px);
+  bottom: 45px;
+  display: none;
+
+  &:after, &:before {
+    height: 35px;
+    width: 5px;
+    background: #a5592d;
+    bottom: -35px;
+    position: absolute;
+    content: '';
+  }
+
+  &:before {
+    left: -5px;
+  }
+
+  &:after {
+    right: 0;
+  }
+}
+
+.table {
+  width: 120px;
+  height: 90px;
+  border-left: 5px solid #a5592d;
+  border-right: 5px solid #a5592d;
+  border-top: 15px solid #a5592d;
+  box-sizing: border-box;
+  position: absolute;
+  left: calc(50% + 35px);
+  bottom: 5px;
+  display: none;
+
+  &:after, &:before {
+    height: 60px;
+    width: 5px;
+    background: #a5592d;
+    position: absolute;
+    content: '';
+    top: 0;
+  }
+
+  &:before {
+    left: 15px;
+  }
+
+  &:after {
+    right: 15px;
+  }
+}
+
+.stick-man {
+  background: linear-gradient($shirt-color 75px, $short-color 25px);
+  width: 50px;
+  height: 100px;
+  border-radius: 10px;
+  position: absolute;
+  left: calc(50% - 25px);
+  top: 45px;
+}
+
+[class^="stick-man__"] {
+  position: absolute;
+}
+
+.stick-man__head {
+  top: -40px;
+  width: 30px;
+  height: 36px;
+  border-radius: 50%;
+  left: calc(50% - 15px);
+  background: $skin-color;
+}
+
+[class^="stick-man__arm"] {
+  top: 0;
+  width: 18px;
+  height: 45px;
+  border-radius: 9px;
+  transform-origin: 50% 9px;
+  background: darken($skin-color, 2%);
+  z-index: -1;
+
+  &:before {
+    position: absolute;
+    content: '';
+    width: inherit;
+    height: 20px;
+    border-radius: 9px 9px 0 0;
+    top: -1px;
+    background: $shirt-color;
+  }
+
+  &:after {
+    position: absolute;
+    content: '';
+    width: inherit;
+    height: 45px;
+    border-radius: inherit;
+    background: inherit;
+    bottom: -32px;
+    transform-origin: 50% 9px;
+  }
+}
+
+.stick-man__arm-left {
+  left: -10px;
+  transform: rotate(20deg);
+
+  &:after {
+    transform: rotate(-20deg);
+  }
+}
+
+.stick-man__arm-right {
+  right: -10px;
+  transform: rotate(-20deg);
+
+  &:after {
+    transform: rotate(20deg);
+  }
+}
+
+[class^="stick-man__leg"] {
+  bottom: -30px;
+  width: 20px;
+  height: 50px;
+  border-radius: 10px;
+  transform-origin: 50% 10px;
+  background: darken($skin-color, 2%);
+  z-index: -1;
+
+  &:before {
+    position: absolute;
+    content: '';
+    width: inherit;
+    height: 30px;
+    border-radius: 10px 10px 0 0;
+    top: -1px;
+    background: $short-color;
+  }
+
+  &:after {
+    position: absolute;
+    content: '';
+    width: inherit;
+    height: 60px;
+    border-radius: inherit;
+    background: inherit;
+    bottom: -40px;
+    transform-origin: 50% 10px;
+  }
+}
+
+.stick-man__leg-left {
+  left: 0;
+  transform: rotate(5deg);
+
+  &:after {
+    transform: rotate(0deg);
+  }
+}
+
+.stick-man__leg-right {
+  right: 0;
+  transform: rotate(-5deg);
+
+  &:after {
+    transform: rotate(0deg);
+  }
+}
+
+.stick-man--side {
+  width: 40px;
+  left: calc(50% - 20px);
+
+  [class^="stick-man__arm"] {
+    left: calc(50% - 10px);
+    transform: rotate(0deg);
+
+    &:after {
+      transform: rotate(-10deg);
+    }
+  }
+
+  [class^="stick-man__leg"] {
+    left: calc(50% - 10px);
+    transform: rotate(0deg);
+  }
+
+  .stick-man__arm-left, .stick-man__leg-left {
+    z-index: 0;
+  }
+
+  .stick-man__arm-right, .stick-man__leg-right {
+    background: darken($skin-color, 6%);
+  }
+}
+
+@keyframes move-shoulder {
+  20% {
+    top: -5px;
+  }
+  80% {
+    top: -5px;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+.exercise--shoulder [class^="stick-man__arm"] {
+  animation: move-shoulder 3s ease-in infinite;
+}
+
+@keyframes tilt-head-h {
+  25% {
+    transform: rotate(-25deg);
+  }
+  75% {
+    transform: rotate(25deg);
+  }
+}
+
+.exercise--neck-h .stick-man__head {
+  transform-origin: 50% 100%;
+  animation: tilt-head-h 3s ease-in infinite;
+}
+
+@keyframes tilt-head-v {
+  25% {
+    transform: rotate(30deg);
+  }
+  75% {
+    transform: rotate(-30deg);
+  }
+}
+
+.exercise--neck-v .stick-man__head {
+  transform-origin: 50% 100%;
+  animation: tilt-head-v 3s ease-in infinite;
+}
+
+@keyframes move-arm {
+  5%, 25% {
+    transform: rotate(-90deg);
+  }
+  30%, 50% {
+    transform: rotate(-180deg);
+  }
+  55%, 75% {
+    transform: rotate(-90deg);
+  }
+  80%, 100%, 0% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes move-arm-2 {
+  5%, 25% {
+    transform: rotate(90deg);
+  }
+  30%, 50% {
+    transform: rotate(180deg);
+  }
+  55%, 75% {
+    transform: rotate(90deg);
+  }
+  80%, 100%, 0% {
+    transform: rotate(0deg);
+  }
+}
+
+.exercise--arm-h {
+  [class^="stick-man__arm"]:after {
+    transform: rotate(0deg);
+  }
+  .stick-man__arm-left {
+    animation: move-arm-2 5s ease-in infinite;
+  }
+
+  .stick-man__arm-right {
+    animation: move-arm 5s ease-in infinite;
+  }
+}
+
+.exercise--arm-v [class^="stick-man__arm"] {
+  animation: move-arm 5s ease-in infinite;
+}
+
+@keyframes move-leg {
+  5%, 25% {
+    transform: rotate(0deg);
+  }
+  30%, 50%, 100%, 0% {
+    transform: rotate(90deg);
+  }
+}
+
+@keyframes move-leg-2 {
+  55%, 75% {
+    transform: rotate(0deg);
+  }
+  50%, 80%, 100%, 0% {
+    transform: rotate(90deg);
+  }
+}
+
+.exercise--leg {
+  .stick-man {
+    top: 65px;
+  }
+
+  [class^="stick-man__leg"] {
+    transform: rotate(-90deg);
+  }
+  .stick-man__leg-left:after {
+    animation: move-leg 5s ease-in infinite;
+  }
+
+  .stick-man__leg-right:after {
+    animation: move-leg-2 5s ease-in infinite;
+  }
+}
+
+@keyframes move-tricep {
+  10%, 50% {
+    transform: rotate(-120deg);
+  }
+  60%, 100%, 0% {
+    transform: rotate(-90deg);
+  }
+}
+
+@keyframes move-tricep-a {
+  10%, 50% {
+    transform: rotate(120deg);
+  }
+  60%, 100%, 0% {
+    transform: rotate(90deg);
+  }
+}
+
+.exercise--tricep {
+  .stick-man {
+    top: 65px;
+  }
+
+  [class^="stick-man__arm"] {
+    transform: rotate(15deg);
+    &:after {
+      transform: rotate(-30deg);
+    }
+  }
+
+  [class^="stick-man__leg"] {
+    transform: rotate(-90deg);
+    animation: move-tricep 5s ease-in infinite;
+
+    &:after {
+      transform: rotate(90deg);
+      animation: move-tricep-a 5s ease-in infinite;
+    }
+  }
+}
+
+.exercise--leg, .exercise--tricep {
+  .chair {
+    display: block;
+  }
+}
+
+@keyframes move-jog-body {
+  20%, 30%, 70%, 80% {
+    top: 35px;
+  }
+  50%, 100%, 0% {
+    top: 45px;
+  }
+}
+
+@keyframes move-jog-arm-right {
+  20%, 30% {
+    transform: rotate(-40deg);
+  }
+  50%, 100%, 0% {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes move-jog-arm-right-a {
+  20%, 30% {
+    transform: rotate(-80deg);
+  }
+  50%, 100%, 0% {
+    transform: rotate(-20deg);
+  }
+}
+
+@keyframes move-jog-arm-left {
+  70%, 80% {
+    transform: rotate(-40deg);
+  }
+  90%, 100%, 50% {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes move-jog-arm-left-a {
+  70%, 80% {
+    transform: rotate(-80deg);
+  }
+  90%, 100%, 50% {
+    transform: rotate(-20deg);
+  }
+}
+
+@keyframes move-jog-leg-left {
+  20%, 30% {
+    transform: rotate(-90deg);
+  }
+  50%, 100%, 0% {
+    transform: rotate(-10deg);
+  }
+}
+
+@keyframes move-jog-leg-left-a {
+  20%, 30% {
+    transform: rotate(110deg);
+  }
+  50%, 100%, 0% {
+    transform: rotate(20deg);
+  }
+}
+
+@keyframes move-jog-leg-right {
+  70%, 80% {
+    transform: rotate(-90deg);
+  }
+  90%, 100%, 50% {
+    transform: rotate(-10deg);
+  }
+}
+
+@keyframes move-jog-leg-right-a {
+  70%, 80% {
+    transform: rotate(110deg);
+  }
+  90%, 100%, 50% {
+    transform: rotate(20deg);
+  }
+}
+
+.exercise--jog {
+  .stick-man {
+    animation: move-jog-body 2s linear infinite;
+  }
+
+  [class^="stick-man__arm"] {
+    transform: rotate(10deg);
+
+    &:after {
+      transform: rotate(-20deg);
+    }
+  }
+
+  [class^="stick-man__leg"] {
+    transform: rotate(-5deg);
+
+    &:after {
+      transform: rotate(20deg);
+    }
+  }
+
+  .stick-man__arm-left {
+    animation: move-jog-arm-left 2s linear infinite;
+
+    &:after {
+      animation: move-jog-arm-left-a 2s linear infinite;
+    }
+  }
+  .stick-man__arm-right {
+    animation: move-jog-arm-right 2s linear infinite;
+
+    &:after {
+      animation: move-jog-arm-right-a 2s linear infinite;
+    }
+  }
+
+  .stick-man__leg-left {
+    animation: move-jog-leg-left 2s linear infinite;
+
+    &:after {
+      animation: move-jog-leg-left-a 2s linear infinite;
+    }
+  }
+  .stick-man__leg-right {
+    animation: move-jog-leg-right 2s linear infinite;
+
+    &:after {
+      animation: move-jog-leg-right-a 2s linear infinite;
+    }
+  }
+}
+
+@keyframes move-plank-leg-left {
+  10%, 40% {
+    transform: rotate(45deg);
+  }
+  50%, 100%, 0% {
+    transform: rotate(-10deg);
+  }
+}
+
+@keyframes move-plank-leg-left-a {
+  10%, 40% {
+    transform: rotate(5deg);
+  }
+  50%, 100%, 0% {
+    transform: rotate(20deg);
+  }
+}
+
+@keyframes move-plank-leg-right {
+  60%, 90% {
+    transform: rotate(45deg);
+  }
+  100%, 50% {
+    transform: rotate(-10deg);
+  }
+}
+
+@keyframes move-plank-leg-right-a {
+  60%, 90% {
+    transform: rotate(5deg);
+  }
+  100%, 50% {
+    transform: rotate(20deg);
+  }
+}
+
+.exercise--plank {
+  .stick-man {
+    transform: rotate(80deg);
+    top: 65px;
+    left: calc(50% - 10px);
+  }
+
+  .stick-man__head {
+    transform-origin: 50% 100%;
+    transform: rotate(-45deg);
+  }
+
+  [class^="stick-man__arm"] {
+    transform: rotate(-55deg);
+
+    &:after {
+      transform: rotate(-115deg);
+    }
+  }
+
+  [class^="stick-man__leg"] {
+    transform: rotate(-10deg);
+
+    &:after {
+      transform: rotate(20deg);
+    }
+  }
+
+  .stick-man__leg-left {
+    animation: move-plank-leg-left 3s linear infinite;
+
+    &:after {
+      animation: move-plank-leg-left-a 3s linear infinite;
+    }
+  }
+  .stick-man__leg-right {
+    animation: move-plank-leg-right 3s linear infinite;
+
+    &:after {
+      animation: move-plank-leg-right-a 3s linear infinite;
+    }
+  }
+}
+
+@keyframes push-body {
+  10%, 50% {
+    transform: rotate(40deg);
+  }
+  60%, 100% {
+    transform: rotate(30deg);
+  }
+}
+
+@keyframes push-arm {
+  10%, 50% {
+    transform: rotate(30deg);
+  }
+  60%, 100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes push-arm-a {
+  10%, 50% {
+    transform: rotate(-120deg);
+  }
+  60%, 100% {
+    transform: rotate(-90deg);
+  }
+}
+
+.exercise--push {
+  .table {
+    display: block;
+  }
+
+  .stick-man {
+    transform: rotate(30deg);
+    transform-origin: 50% 170px;
+    left: calc(50% - 80px);
+    animation: push-body 3s linear infinite;
+  }
+
+  [class^="stick-man__arm"] {
+    animation: push-arm 3s linear infinite;
+
+    &:after {
+      transform: rotate(-90deg);
+      animation: push-arm-a 3s linear infinite;
+    }
+  }
+}
+
+@keyframes hi-wave {
+  0%, 50%, 100% {
+    transform: rotate(-110deg);
+  }
+  25% {
+    transform: rotate(-100deg);
+  }
+  75% {
+    transform: rotate(-120deg);
+  }
+}
+
+.exercise--hi {
+  .stick-man__arm-right {
+    transform: rotate(-40deg);
+
+    &:after {
+      animation: hi-wave 1s linear infinite;
+    }
+  }
+}
+
+@keyframes yay-left {
+  0%, 50%, 100% {
+    transform: rotate(135deg);
+  }
+  25% {
+    transform: rotate(150deg);
+  }
+  75% {
+    transform: rotate(120deg);
+  }
+}
+
+@keyframes yay-right {
+  0%, 50%, 100% {
+    transform: rotate(-135deg);
+  }
+  25% {
+    transform: rotate(-150deg);
+  }
+  75% {
+    transform: rotate(-120deg);
+  }
+}
+
+.exercise--yay {
+  .stick-man__arm-left {
+    animation: yay-left 2s linear infinite;
+
+    &:after {
+      transform: rotate(50deg);
+    }
+  }
+
+  .stick-man__arm-right {
+    animation: yay-right 2s linear infinite;
+
+    &:after {
+      transform: rotate(-50deg);
+    }
+  }
+}

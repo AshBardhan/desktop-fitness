@@ -1,0 +1,25 @@
+{
+  "name": "desktop-fitness",
+  "description": "Your Fitness Buddy",
+  "main": "index.js",
+  "authors": [
+    "AshBardhan"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "fitness",
+    "hackathon",
+    "desktop"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1"
+  }
+}
