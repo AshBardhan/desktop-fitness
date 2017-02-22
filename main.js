@@ -19,14 +19,14 @@ function getTimeValue(timeValue) {
 
 function createWindow() {
     // Create the browser window.
-    mainWindow = new BrowserWindow({width: 800, height: 600})
+    mainWindow = new BrowserWindow({width: 1280, height: 800})
 
     // and load the index.html of the app.
     mainWindow.loadURL('http://localhost:8000/');
     isAppFocused = true;
 
     // Open the DevTools.
-    mainWindow.webContents.openDevTools()
+    //mainWindow.webContents.openDevTools()
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
@@ -83,12 +83,10 @@ app.on('activate', function () {
 
 app.on('browser-window-blur', function () {
     isAppFocused = false;
-    console.log('Blurred->' + isAppFocused);
 })
 
 app.on('browser-window-focus', function () {
     isAppFocused = true;
-    console.log('Focussed->' + isAppFocused);
 })
 
 // In this file you can include the rest of your app's specific main process
