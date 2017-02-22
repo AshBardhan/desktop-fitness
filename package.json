@@ -14,9 +14,9 @@
   "author": "AshBardhan",
   "license": "ISC",
   "devDependencies": {
+    "electron": "^1.4.15",
     "grunt": "~0.4.1",
     "grunt-contrib-watch": "~0.5.3",
-    "grunt-sass": "~0.18.0",
-    "electron": "^1.4.1"
+    "grunt-sass": "~0.18.0"
   }
 }

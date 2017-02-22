@@ -51,6 +51,7 @@ var exerciseList = [
 var count;
 var currentWorkoutIndex = -1;
 var storedName = '';
+var timeList = [];
 
 function setWorkoutCountDown() {
     count = 30;
@@ -127,6 +128,7 @@ function onExerciseChange(exerciseIndex) {
 
 function init() {
     storedName = JSON.parse(localStorage.getItem('name'));
+    processTimeListCookie();
 
     if (!storedName) {
         $('#fitness-form').show();
@@ -148,11 +150,106 @@ function generateExerciseProgress() {
     $('#exercise-progress').html(progressBars).show();
 }
 
+function processTime(time) {
+    var timeObj = {};
+    timeObj.tt = time;
+
+    time = time.split(':').map(function (i) {
+        return parseInt(i)
+    });
+
+    timeObj.hr = ('0' + (time[0] % 12 || 12)).substr(-2);
+    timeObj.mn = ('0' + time[1]).substr(-2);
+    timeObj.tp = Math.floor(time[0] / 12) ? ' PM' : ' AM';
+
+    return timeObj;
+}
+
+function addTimeToTheList(time) {
+    for (var i = 0; i < timeList.length; i++) {
+        if (time <= timeList[i].tt) {
+            if (time < timeList[i].tt)
+                timeList.splice(i, 0, processTime(time));
+            return;
+        }
+    }
+    if (i === timeList.length) {
+        timeList.push(processTime(time));
+    }
+}
+
+function getTimeValue(timeValue) {
+    return ('0' + timeValue).substr(-2);
+}
+
+function checkTimePassed() {
+    var currentDate = new Date();
+    var currentTime = getTimeValue(currentDate.getHours()) + ':' + getTimeValue(currentDate.getMinutes());
+
+    timeList.forEach(function (time, index) {
+        if (currentTime > time.tt) {
+            $('.time-box:eq(' + index + ')').addClass('time-box--disabled');
+        }
+    });
+}
+
+function displayTimeList() {
+    if (timeList.length) {
+        var timeListContent = '';
+        timeList.forEach(function (time, index) {
+            timeListContent +=
+                '<div class="time-box">' +
+                    time.hr + ':' + time.mn + time.tp +
+                    '<span class="time-box__delete" data-item-id="' + index + '">&#215;</span>' +
+                '</div>';
+        });
+        $('#time-list').html(timeListContent).show();
+        checkTimePassed();
+    } else {
+        $('#time-list').hide();
+    }
+}
+
+function saveTimeListCookie() {
+    var cookieData = timeList.map(function (time) {
+        return time.tt;
+    }).join('|');
+
+    document.cookie = 'time=' + cookieData + '; expires=Fri, 31 Dec 9999 23:59:59 GMT';
+    console.log(document.cookie);
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+function processTimeListCookie() {
+    var cookieTimeList = getCookie('time');
+    if (cookieTimeList.length) {
+        cookieTimeList = cookieTimeList.split('|');
+        timeList = cookieTimeList.map(function (time) {
+            return processTime(time);
+        });
+        displayTimeList();
+    }
+}
+
 function addEventListeners() {
     $('#fitness-form').submit(function (e) {
         e.preventDefault();
-        console.log('hello!')
-        var name = $('input').val();
+        var name = $('input[name=user-name]').val();
         if (name) {
             localStorage.setItem('name', JSON.stringify(name));
             $('input').val('');
@@ -165,6 +262,34 @@ function addEventListeners() {
         $('#exercise-text, #exercise-countdown').show();
         generateExerciseProgress();
         onExerciseChange(++currentWorkoutIndex);
+    });
+
+    $('#btn-set-time').on('click', function () {
+        $('#fitness-options').hide();
+        $('#time-section').show();
+    });
+
+    $('#btn-done-time').on('click', function () {
+        $('#fitness-options').show();
+        $('#time-section').hide();
+    });
+
+    $('#btn-add-time').on('click', function (e) {
+        e.preventDefault();
+        var time = $('input[name=user-time]').val();
+        if (time) {
+            addTimeToTheList(time);
+            saveTimeListCookie();
+            displayTimeList();
+        }
+    });
+
+    $('#time-list').on('click', '.time-box__delete', function (e) {
+        var targetElement = $(e.target),
+            index = targetElement.attr('data-item-id');
+        timeList.splice(index, 1);
+        saveTimeListCookie();
+        displayTimeList();
     });
 }
 

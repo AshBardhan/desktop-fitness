@@ -8,35 +8,12 @@ $wood-color: #a5592d;
 
 body {
   background-color: $app-color;
-  height: 100vh;
   padding: 0;
   margin: 0;
   font-family: 'Lato', sans-serif;
   color: $white-color;
   text-transform: uppercase;
   letter-spacing: 1px;
-}
-
-.hide {
-  display: none;
-}
-
-#fitness-title {
-  font-size: 60px;
-  text-align: center;
-  letter-spacing: 3px;
-  margin: 40px 0 60px;
-}
-
-#fitness-exercise {
-  width: 400px;
-  position: relative;
-  margin: 0 auto;
-}
-
-#fitness-form {
-  margin: 0 auto;
-  width: 400px;
 }
 
 label, input {
@@ -54,6 +31,75 @@ input {
   &:focus {
     outline: none;
     border-bottom: 1px solid $white-color;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+#fitness-title {
+  font-size: 60px;
+  text-align: center;
+  letter-spacing: 3px;
+  margin: 40px 0;
+}
+
+#fitness-exercise {
+  width: 400px;
+  position: relative;
+  margin: 0 auto;
+}
+
+#fitness-form, #time-section {
+  margin: 0 auto;
+  width: 400px;
+}
+
+#time-form {
+  display: flex;
+  align-content: center;
+
+  input {
+    margin: 0;
+    text-align: center;
+  }
+}
+
+#time-list {
+  text-align: center;
+  margin-top: 10px;
+  max-height: 90px;
+  overflow-y: auto;
+}
+
+.time-box {
+  color: rgba($white-color, 0.6);
+  width: 90px;
+  margin: 5px 10px;
+  padding: 8px 6px;
+  display: inline-block;
+  font-size: 14px;
+  border-bottom: 1px solid;
+  cursor: default;
+
+  &:hover:not(.time-box--disabled) {
+    color: $white-color;
+  }
+
+  &--disabled {
+    color: rgba($white-color, 0.2);
+  }
+
+  &__delete {
+    cursor: pointer;
+    margin-left: 5px;
+    font-size: 10px;
+    padding: 0 5px;
+
+    &:hover {
+      color: $white-color;
+    }
   }
 }
 

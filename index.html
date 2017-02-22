@@ -8,9 +8,10 @@
 </head>
 <body>
     <h1 id="fitness-title">Fitness Buddy</h1>
+
     <form id="fitness-form" class="hide">
         <label>Name</label>
-        <input type="text" name="name" />
+        <input type="text" name="user-name" />
     </form>
 
     <div id="fitness-exercise" class="hide">
@@ -29,10 +30,21 @@
             </div>
         </div>
         <div id="exercise-progress" class="hide"></div>
-        <div id="fitness-options">
+        <div id="fitness-options" class="hide">
+            <div id="btn-set-time" class="btn">Set Time</div>
             <div id="btn-start" class="btn">Start</div>
         </div>
     </div>
+
+    <div id="time-section" class="hide">
+        <div id="time-form">
+            <input type="time" name="user-time" />
+            <div id="btn-add-time" class="btn">Add</div>
+            <div id="btn-done-time" class="btn">Done</div>
+        </div>
+        <div id="time-list"></div>
+    </div>
+
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script>
         try {
