@@ -186,7 +186,7 @@ input {
   box-sizing: border-box;
   position: absolute;
   left: calc(50% - 25px);
-  bottom: calc(50% - 45px);
+  bottom: 45px;
   display: none;
 
   &:after, &:before {
@@ -545,6 +545,11 @@ input {
 }
 
 .exercise--leg, .exercise--tricep {
+  .stick-figure {
+    top: auto;
+    bottom: 50px;
+  }
+
   .chair {
     display: block;
   }
@@ -723,6 +728,8 @@ input {
   .stick-figure {
     transform: rotate(80deg);
     left: 50%;
+    bottom: -15px;
+    top: auto;
   }
 
   .stick-figure__head {

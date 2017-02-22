@@ -101,7 +101,7 @@ function getGreetingsText() {
 
     if (hour >= 5 && hour < 12) {
         dayText += 'Morning';
-    } else if (hour >= 12 && hour < 5) {
+    } else if (hour >= 12 && hour < 17) {
         dayText += 'Afternoon';
     } else {
         dayText += 'Evening';
