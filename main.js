@@ -39,20 +39,22 @@ function createWindow() {
 
     setInterval(function () {
         mainWindow.webContents.session.cookies.get({name: 'time'}, function (error, cookies) {
-            var cookieTimeList = cookies[0].value;
-            var currentDate = new Date();
-            var currentTime = getTimeValue(currentDate.getHours()) + ':' + getTimeValue(currentDate.getMinutes()) + ':' + getTimeValue(currentDate.getSeconds());
+            if (cookies && cookies.length) {
+                var cookieTimeList = cookies[0].value;
+                var currentDate = new Date();
+                var currentTime = getTimeValue(currentDate.getHours()) + ':' + getTimeValue(currentDate.getMinutes()) + ':' + getTimeValue(currentDate.getSeconds());
 
-            if (cookieTimeList.length) {
-                cookieTimeList = cookieTimeList.split('|');
-                cookieTimeList.forEach(function (time) {
-                    var timeTenSecondsAfter = time + ':10';
-                    time = time + ':00';
-                    if (currentTime >= time && currentTime <= timeTenSecondsAfter && !isAppFocused) {
-                        app.focus();
-                        return;
-                    }
-                });
+                if (cookieTimeList.length) {
+                    cookieTimeList = cookieTimeList.split('|');
+                    cookieTimeList.forEach(function (time) {
+                        var timeTenSecondsAfter = time + ':10';
+                        time = time + ':00';
+                        if (currentTime >= time && currentTime <= timeTenSecondsAfter && !isAppFocused) {
+                            app.focus();
+                            return;
+                        }
+                    });
+                }
             }
         });
     }, 500);

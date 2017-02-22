@@ -79,7 +79,7 @@ function setWorkoutCountDown() {
 
 function switchToNextExercise() {
     $('#fitness-exercise').removeClass().addClass('exercise--rest');
-    $('#exercise-text').text('Break Time');
+    $('#exercise-text').text('Take Rest');
     var restCount = 5;
 
     (function restingLoop() {
