@@ -14,9 +14,19 @@
   "author": "AshBardhan",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^1.4.15",
     "grunt": "~0.4.1",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-sass": "~0.18.0"
-  }
+  },
+  "dependencies": {
+    "electron": "^1.4.15"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AshBardhan/desktop-fitness.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AshBardhan/desktop-fitness/issues"
+  },
+  "homepage": "https://github.com/AshBardhan/desktop-fitness#readme"
 }
