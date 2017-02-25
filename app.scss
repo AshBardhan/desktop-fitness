@@ -38,6 +38,11 @@ input {
   display: none;
 }
 
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 #fitness-title {
   font-size: 60px;
   text-align: center;
@@ -103,7 +108,7 @@ input {
   }
 }
 
-#fitness-options {
+#exercise-options, #fitness-options {
   text-align: center;
   margin: 20px 0 0;
 }

@@ -52,6 +52,12 @@ var count;
 var currentWorkoutIndex = -1;
 var storedName = '';
 var timeList = [];
+var isRestNeeded = true;
+var isPaused = false;
+
+function getCountDownValue(isPaused) {
+    return isPaused ? count : (count - 1);
+}
 
 function setWorkoutCountDown() {
     count = 30;
@@ -59,14 +65,14 @@ function setWorkoutCountDown() {
     (function workoutLoop() {
         if (count >= 0) {
             $('#exercise-countdown').text(count);
-            count -= 1;
+            count = getCountDownValue(isPaused);
             setTimeout(workoutLoop, 1000);
         } else {
             if (currentWorkoutIndex + 1 < exerciseList.length) {
-                switchToNextExercise();
+                switchToNextExercise(isRestNeeded);
             } else {
                 $('#fitness-exercise').removeClass().addClass('exercise--yay');
-                $('#exercise-text, #exercise-countdown, #exercise-progress').hide();
+                $('#exercise-text, #exercise-countdown, #exercise-progress, #exercise-options').hide();
                 $('.stick-figure').removeClass('stick-figure--side');
                 $('#fitness-intro').show().text('Well done, ' + storedName + '!');
                 $('#fitness-options').show();
@@ -77,21 +83,26 @@ function setWorkoutCountDown() {
     })();
 }
 
-function switchToNextExercise() {
-    $('#fitness-exercise').removeClass().addClass('exercise--rest');
-    $('#exercise-text').text('Take Rest');
-    var restCount = 5;
+function switchToNextExercise(isRestNeeded) {
+    if (isRestNeeded) {
+        $('#exercise-options').addClass('disabled');
+        $('#fitness-exercise').removeClass().addClass('exercise--rest');
+        $('#exercise-text').text('Take Rest');
+        var restCount = 5;
 
-    (function restingLoop() {
-        if (restCount >= 0) {
-            $('#exercise-countdown').text(restCount);
-            restCount -= 1;
-            setTimeout(restingLoop, 1000);
-        } else {
-            onExerciseChange(++currentWorkoutIndex);
-            return false;
-        }
-    })();
+        (function restingLoop() {
+            if (restCount >= 0) {
+                $('#exercise-countdown').text(restCount);
+                restCount -= 1;
+                setTimeout(restingLoop, 1000);
+            } else {
+                onExerciseChange(++currentWorkoutIndex);
+                return false;
+            }
+        })();
+    } else {
+        onExerciseChange(++currentWorkoutIndex);
+    }
 }
 
 function getGreetingsText() {
@@ -115,6 +126,7 @@ function onExerciseChange(exerciseIndex) {
 
     $('#fitness-exercise').removeClass().addClass('exercise--' + exercise.id);
     $('#exercise-text').text(exercise.name);
+    $('#exercise-options').removeClass();
     $('.stick-figure').removeClass('stick-figure--side');
     $('.progress-bar').removeClass('progress-bar--current');
     $('.progress-bar:eq(' + exerciseIndex + ')').addClass('progress-bar--current');
@@ -123,6 +135,7 @@ function onExerciseChange(exerciseIndex) {
         $('.stick-figure').addClass('stick-figure--side');
     }
 
+    isRestNeeded = true;
     setWorkoutCountDown();
 }
 
@@ -259,7 +272,7 @@ function addEventListeners() {
 
     $('#btn-start').on('click', function () {
         $('#fitness-intro, #fitness-options').hide();
-        $('#exercise-text, #exercise-countdown').show();
+        $('#exercise-text, #exercise-countdown, #exercise-options').show();
         generateExerciseProgress();
         onExerciseChange(++currentWorkoutIndex);
     });
@@ -290,6 +303,16 @@ function addEventListeners() {
         timeList.splice(index, 1);
         saveTimeListCookie();
         displayTimeList();
+    });
+
+    $('#btn-skip').on('click', function () {
+        count = -1;
+        isRestNeeded = false;
+    });
+
+    $('#btn-pause').on('click', function () {
+        isPaused = !isPaused;
+        $(this).text(isPaused ? 'Resume' : 'Pause');
     });
 }
 
