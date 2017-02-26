@@ -54,20 +54,18 @@ var storedName = '';
 var timeList = [];
 var isRestNeeded = true;
 var isPaused = false;
-
-function getCountDownValue(isPaused) {
-    return isPaused ? count : (count - 1);
-}
+var workoutLoop, restingLoop;
 
 function setWorkoutCountDown() {
-    count = 30;
+    $('#exercise-countdown').text(('0' + count).substr(-2));
 
-    (function workoutLoop() {
-        if (count >= 0) {
-            $('#exercise-countdown').text(count);
-            count = getCountDownValue(isPaused);
-            setTimeout(workoutLoop, 1000);
+    workoutLoop = setInterval(function () {
+        if (count > 0) {
+            --count;
+            $('#exercise-countdown').text(('0' + count).substr(-2));
         } else {
+            clearInterval(workoutLoop);
+
             if (currentWorkoutIndex + 1 < exerciseList.length) {
                 switchToNextExercise(isRestNeeded);
             } else {
@@ -79,9 +77,8 @@ function setWorkoutCountDown() {
                 $('#fitness-options').show();
                 currentWorkoutIndex = -1;
             }
-            return false;
         }
-    })();
+    }, 1000);
 }
 
 function switchToNextExercise(isRestNeeded) {
@@ -91,16 +88,17 @@ function switchToNextExercise(isRestNeeded) {
         $('#exercise-text').text('Take Rest');
         var restCount = 5;
 
-        (function restingLoop() {
-            if (restCount >= 0) {
-                $('#exercise-countdown').text(restCount);
-                restCount -= 1;
-                setTimeout(restingLoop, 1000);
+        $('#exercise-countdown').text(('0' + restCount).substr(-2));
+
+        restingLoop = setInterval(function () {
+            if (restCount > 0) {
+                --restCount;
+                $('#exercise-countdown').text(('0' + restCount).substr(-2));
             } else {
                 onExerciseChange(++currentWorkoutIndex);
-                return false;
+                clearInterval(restingLoop);
             }
-        })();
+        }, 1000);
     } else {
         onExerciseChange(++currentWorkoutIndex);
     }
@@ -137,6 +135,7 @@ function onExerciseChange(exerciseIndex) {
     }
 
     isRestNeeded = true;
+    count = 30;
     setWorkoutCountDown();
 }
 
@@ -307,6 +306,12 @@ function addEventListeners() {
         $(this).text(isPaused ? 'Resume' : 'Pause');
         $('#fitness-exercise').toggleClass('animating');
         $('#btn-skip').toggleClass('disabled');
+
+        if (isPaused) {
+            clearInterval(workoutLoop);
+        } else {
+            setWorkoutCountDown(count);
+        }
     });
 
     $('#fitness-settings').on('click', function () {
