@@ -44,11 +44,26 @@ input {
   opacity: 0.5;
 }
 
+svg {
+  fill: rgba($white-color, 0.6);
+  cursor: pointer;
+
+  &:hover {
+    fill: $white-color;
+  }
+}
+
 #fitness-title {
   font-size: 60px;
   text-align: center;
   letter-spacing: 3px;
   margin: 40px 0;
+}
+
+#fitness-settings {
+  position: absolute;
+  right: 20px;
+  top: 20px;
 }
 
 #fitness-exercise {
@@ -57,17 +72,13 @@ input {
   margin: 0 auto;
 }
 
-#fitness-form, #time-section {
+#fitness-form {
   margin: 25px auto;
   width: 300px;
   text-align: center;
 }
 
-#time-section {
-  width: 400px;
-}
-
-.time-form {
+#time-form {
   display: flex;
   align-content: center;
   margin-top: 15px;
@@ -78,7 +89,7 @@ input {
   }
 }
 
-.time-list {
+#time-list {
   text-align: center;
   margin-top: 10px;
   max-height: 90px;

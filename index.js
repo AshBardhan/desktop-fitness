@@ -75,6 +75,7 @@ function setWorkoutCountDown() {
                 $('#exercise-text, #exercise-countdown, #exercise-progress, #exercise-options').hide();
                 $('.stick-figure').removeClass('stick-figure--side');
                 $('#fitness-intro').show().text('Well done, ' + storedName + '!');
+                $('#fitness-settings').removeClass('disabled');
                 $('#fitness-options').show();
                 currentWorkoutIndex = -1;
             }
@@ -216,10 +217,10 @@ function displayTimeList() {
                     '<span class="time-box__delete" data-item-id="' + index + '">&#215;</span>' +
                 '</div>';
         });
-        $('.time-list').html(timeListContent).show();
+        $('#time-list').html(timeListContent).show();
         checkTimePassed();
     } else {
-        $('.time-list').hide();
+        $('#time-list').hide();
     }
 }
 
@@ -229,7 +230,6 @@ function saveTimeListCookie() {
     }).join('|');
 
     document.cookie = 'time=' + cookieData + '; expires=Fri, 31 Dec 9999 23:59:59 GMT';
-    console.log(document.cookie);
 }
 
 function getCookie(cname) {
@@ -262,9 +262,9 @@ function processTimeListCookie() {
 function addEventListeners() {
     $('#fitness-form').on('click', '#btn-save', function (e) {
         e.preventDefault();
-        var name = $('input[name=user-name]').val();
-        if (name) {
-            localStorage.setItem('name', JSON.stringify(name));
+        storedName = $('input[name=user-name]').val();
+        if (storedName) {
+            localStorage.setItem('name', JSON.stringify(storedName));
             $('input').val('');
             init();
         }
@@ -273,25 +273,14 @@ function addEventListeners() {
     $('#btn-start').on('click', function () {
         $('#fitness-intro, #fitness-options').hide();
         $('#exercise-text, #exercise-countdown, #exercise-options').show();
+        $('#fitness-settings').addClass('disabled');
         generateExerciseProgress();
         onExerciseChange(++currentWorkoutIndex);
     });
 
-    $('#btn-set-time').on('click', function () {
-        $('#fitness-options').hide();
-        $('#time-section').show();
-    });
-
-    $('#btn-done-time').on('click', function () {
-        $('#fitness-options').show();
-        $('#time-section').hide();
-    });
-
-    $('.btn-add-time').on('click', function (e) {
+    $('#btn-add-time').on('click', function (e) {
         e.preventDefault();
-        var formType = $(this).attr('data-form-type');
-        var time = $('input[name=user-time][data-form-type='+ formType+']').val();
-        console.log(time);
+        var time = $('input[name=user-time]').val();
 
         if (time) {
             addTimeToTheList(time);
@@ -300,7 +289,7 @@ function addEventListeners() {
         }
     });
 
-    $('.time-list').on('click', '.time-box__delete', function (e) {
+    $('#time-list').on('click', '.time-box__delete', function (e) {
         var targetElement = $(e.target),
             index = targetElement.attr('data-item-id');
         timeList.splice(index, 1);
@@ -318,6 +307,14 @@ function addEventListeners() {
         $(this).text(isPaused ? 'Resume' : 'Pause');
         $('#fitness-exercise').toggleClass('animating');
         $('#btn-skip').toggleClass('disabled');
+    });
+
+    $('#fitness-settings').on('click', function () {
+        if ($('#fitness-form').is(':hidden')) {
+            $('#fitness-form').show();
+            $('#fitness-exercise').hide();
+            $('input[name=user-name]').val(storedName);
+        }
     });
 }
 
