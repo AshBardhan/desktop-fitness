@@ -216,10 +216,10 @@ function displayTimeList() {
                     '<span class="time-box__delete" data-item-id="' + index + '">&#215;</span>' +
                 '</div>';
         });
-        $('#time-list').html(timeListContent).show();
+        $('.time-list').html(timeListContent).show();
         checkTimePassed();
     } else {
-        $('#time-list').hide();
+        $('.time-list').hide();
     }
 }
 
@@ -260,7 +260,7 @@ function processTimeListCookie() {
 }
 
 function addEventListeners() {
-    $('#fitness-form').submit(function (e) {
+    $('#fitness-form').on('click', '#btn-save', function (e) {
         e.preventDefault();
         var name = $('input[name=user-name]').val();
         if (name) {
@@ -287,9 +287,12 @@ function addEventListeners() {
         $('#time-section').hide();
     });
 
-    $('#btn-add-time').on('click', function (e) {
+    $('.btn-add-time').on('click', function (e) {
         e.preventDefault();
-        var time = $('input[name=user-time]').val();
+        var formType = $(this).attr('data-form-type');
+        var time = $('input[name=user-time][data-form-type='+ formType+']').val();
+        console.log(time);
+
         if (time) {
             addTimeToTheList(time);
             saveTimeListCookie();
@@ -297,7 +300,7 @@ function addEventListeners() {
         }
     });
 
-    $('#time-list').on('click', '.time-box__delete', function (e) {
+    $('.time-list').on('click', '.time-box__delete', function (e) {
         var targetElement = $(e.target),
             index = targetElement.attr('data-item-id');
         timeList.splice(index, 1);

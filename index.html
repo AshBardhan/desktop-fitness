@@ -12,6 +12,15 @@
     <form id="fitness-form" class="hide">
         <label>Name</label>
         <input type="text" name="user-name" />
+
+        <label>Schedule Time (Optional)</label>
+        <div class="time-form">
+            <input type="time" name="user-time" data-form-type="1"/>
+            <div class="btn  btn-add-time" data-form-type="1">Add</div>
+        </div>
+        <div class="time-list"></div>
+
+        <div id="btn-save" class="btn">Save</div>
     </form>
 
     <div id="fitness-exercise" class="hide">
@@ -41,12 +50,12 @@
     </div>
 
     <div id="time-section" class="hide">
-        <div id="time-form">
-            <input type="time" name="user-time" />
-            <div id="btn-add-time" class="btn">Add</div>
+        <div class="time-form">
+            <input type="time" name="user-time" data-form-type="2" />
+            <div class="btn  btn-add-time" data-form-type="2">Add</div>
             <div id="btn-done-time" class="btn">Done</div>
         </div>
-        <div id="time-list"></div>
+        <div class="time-list"></div>
     </div>
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>

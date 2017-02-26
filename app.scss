@@ -26,7 +26,8 @@ input {
   font-size: 20px;
   border-bottom: 1px solid rgba($white-color, 0.6);
   color: $white-color;
-  margin: 10px 0 30px;
+  margin: 10px 0 40px;
+  text-align: center;
 
   &:focus {
     outline: none;
@@ -58,12 +59,18 @@ input {
 
 #fitness-form, #time-section {
   margin: 25px auto;
+  width: 300px;
+  text-align: center;
+}
+
+#time-section {
   width: 400px;
 }
 
-#time-form {
+.time-form {
   display: flex;
   align-content: center;
+  margin-top: 15px;
 
   input {
     margin: 0;
@@ -71,7 +78,7 @@ input {
   }
 }
 
-#time-list {
+.time-list {
   text-align: center;
   margin-top: 10px;
   max-height: 90px;
@@ -121,13 +128,17 @@ input {
   padding: 8px 12px;
   text-align: center;
   font-size: 12px;
-  margin: 0 10px;
+  margin-left: 10px;
   cursor: pointer;
 
   &:hover {
     color: $white-color;
     border-color: $white-color;
   }
+}
+
+#btn-save {
+  margin: 30px 0 0;
 }
 
 #exercise-text, #fitness-intro {
@@ -781,7 +792,7 @@ input {
     }
   }
 
-  &.animating  {
+  &.animating {
     .stick-figure__leg-left {
       animation: move-plank-leg-left 3s linear infinite;
 
