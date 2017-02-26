@@ -57,7 +57,7 @@ input {
 }
 
 #fitness-form, #time-section {
-  margin: 0 auto;
+  margin: 25px auto;
   width: 400px;
 }
 
@@ -110,7 +110,7 @@ input {
 
 #exercise-options, #fitness-options {
   text-align: center;
-  margin: 20px 0 0;
+  margin: 25px 0 0;
 }
 
 .btn {
@@ -146,7 +146,7 @@ input {
 
 #exercise-progress {
   text-align: center;
-  margin: 10px 0;
+  margin: 25px 0;
 
   .progress-bar {
     display: inline-block;
@@ -170,15 +170,15 @@ input {
 }
 
 #exercise-countdown {
-  width: 300px;
-  height: 260px;
-  line-height: 260px;
-  font-size: 260px;
+  width: 400px;
+  height: 250px;
+  line-height: 250px;
+  font-size: 320px;
   text-align: center;
+  letter-spacing: -5px;
   position: absolute;
-  letter-spacing: -3px;
-  top: calc(50% - 130px);
-  left: calc(50% - 150px);
+  top: 30px;
+  left: calc(50% - 200px);
   color: rgba($white-color, 0.4);
   z-index: -1;
 }
@@ -249,7 +249,7 @@ input {
   border-radius: 10px;
   position: absolute;
   left: calc(50% - 25px);
-  top: calc(50% - 60px);
+  top: calc(50% - 50px);
 }
 
 [class^="stick-figure__"] {
@@ -399,7 +399,7 @@ input {
   }
 }
 
-.exercise--shoulder [class^="stick-figure__arm"] {
+.exercise--shoulder.animating [class^="stick-figure__arm"] {
   animation: move-shoulder 3s ease-in infinite;
 }
 
@@ -412,7 +412,7 @@ input {
   }
 }
 
-.exercise--neck-h .stick-figure__head {
+.exercise--neck-h.animating .stick-figure__head {
   transform-origin: 50% 100%;
   animation: tilt-head-h 3s ease-in infinite;
 }
@@ -426,7 +426,7 @@ input {
   }
 }
 
-.exercise--neck-v .stick-figure__head {
+.exercise--neck-v.animating .stick-figure__head {
   transform-origin: 50% 100%;
   animation: tilt-head-v 3s ease-in infinite;
 }
@@ -462,22 +462,36 @@ input {
 }
 
 .exercise--arm-h {
-  [class^="stick-figure__arm"]:after {
+  [class^="stick-figure__arm"], [class^="stick-figure__arm"]:after {
     transform: rotate(0deg);
   }
 
+  &.animating {
+    .stick-figure__arm-left {
+      animation: move-arm-left 5s ease-in infinite;
+    }
+
+    .stick-figure__arm-right {
+      animation: move-arm-right 5s ease-in infinite;
+    }
+  }
+
+}
+
+.exercise--arm-v {
   .stick-figure__arm-left {
-    animation: move-arm-left 5s ease-in infinite;
+    transform: rotate(0deg);
   }
 
   .stick-figure__arm-right {
-    animation: move-arm-right 5s ease-in infinite;
+    display: none;
   }
-}
 
-.exercise--arm-v [class^="stick-figure__arm"] {
-  transform: rotate(0deg);
-  animation: move-arm-right 5s ease-in infinite;
+  &.animating {
+    .stick-figure__arm-left {
+      animation: move-arm-right 5s ease-in infinite;
+    }
+  }
 }
 
 @keyframes move-leg {
@@ -501,13 +515,20 @@ input {
 .exercise--leg {
   [class^="stick-figure__leg"] {
     transform: rotate(-90deg);
-  }
-  .stick-figure__leg-left:after {
-    animation: move-leg 5s ease-in infinite;
+
+    &:after {
+      transform: rotate(90deg);
+    }
   }
 
-  .stick-figure__leg-right:after {
-    animation: move-leg-2 5s ease-in infinite;
+  &.animating {
+    .stick-figure__leg-left:after {
+      animation: move-leg 5s ease-in infinite;
+    }
+
+    .stick-figure__leg-right:after {
+      animation: move-leg-2 5s ease-in infinite;
+    }
   }
 }
 
@@ -540,11 +561,19 @@ input {
 
   [class^="stick-figure__leg"] {
     transform: rotate(-90deg);
-    animation: move-tricep 5s ease-in infinite;
 
     &:after {
       transform: rotate(90deg);
-      animation: move-tricep-a 5s ease-in infinite;
+    }
+  }
+
+  &.animating {
+    [class^="stick-figure__leg"] {
+      animation: move-tricep 5s ease-in infinite;
+
+      &:after {
+        animation: move-tricep-a 5s ease-in infinite;
+      }
     }
   }
 }
@@ -642,10 +671,6 @@ input {
 }
 
 .exercise--jog {
-  .stick-figure {
-    animation: move-jog-body 2s linear infinite;
-  }
-
   [class^="stick-figure__arm"] {
     transform: rotate(10deg);
 
@@ -654,41 +679,39 @@ input {
     }
   }
 
-  [class^="stick-figure__leg"] {
-    transform: rotate(-5deg);
-
-    &:after {
-      transform: rotate(20deg);
+  &.animating {
+    .stick-figure {
+      animation: move-jog-body 2s linear infinite;
     }
-  }
 
-  .stick-figure__arm-left {
-    animation: move-jog-arm-left 2s linear infinite;
+    .stick-figure__arm-left {
+      animation: move-jog-arm-left 2s linear infinite;
 
-    &:after {
-      animation: move-jog-arm-left-a 2s linear infinite;
+      &:after {
+        animation: move-jog-arm-left-a 2s linear infinite;
+      }
     }
-  }
-  .stick-figure__arm-right {
-    animation: move-jog-arm-right 2s linear infinite;
+    .stick-figure__arm-right {
+      animation: move-jog-arm-right 2s linear infinite;
 
-    &:after {
-      animation: move-jog-arm-right-a 2s linear infinite;
+      &:after {
+        animation: move-jog-arm-right-a 2s linear infinite;
+      }
     }
-  }
 
-  .stick-figure__leg-left {
-    animation: move-jog-leg-left 2s linear infinite;
+    .stick-figure__leg-left {
+      animation: move-jog-leg-left 2s linear infinite;
 
-    &:after {
-      animation: move-jog-leg-left-a 2s linear infinite;
+      &:after {
+        animation: move-jog-leg-left-a 2s linear infinite;
+      }
     }
-  }
-  .stick-figure__leg-right {
-    animation: move-jog-leg-right 2s linear infinite;
+    .stick-figure__leg-right {
+      animation: move-jog-leg-right 2s linear infinite;
 
-    &:after {
-      animation: move-jog-leg-right-a 2s linear infinite;
+      &:after {
+        animation: move-jog-leg-right-a 2s linear infinite;
+      }
     }
   }
 }
@@ -758,18 +781,20 @@ input {
     }
   }
 
-  .stick-figure__leg-left {
-    animation: move-plank-leg-left 3s linear infinite;
+  &.animating  {
+    .stick-figure__leg-left {
+      animation: move-plank-leg-left 3s linear infinite;
 
-    &:after {
-      animation: move-plank-leg-left-a 3s linear infinite;
+      &:after {
+        animation: move-plank-leg-left-a 3s linear infinite;
+      }
     }
-  }
-  .stick-figure__leg-right {
-    animation: move-plank-leg-right 3s linear infinite;
+    .stick-figure__leg-right {
+      animation: move-plank-leg-right 3s linear infinite;
 
-    &:after {
-      animation: move-plank-leg-right-a 3s linear infinite;
+      &:after {
+        animation: move-plank-leg-right-a 3s linear infinite;
+      }
     }
   }
 }
@@ -810,15 +835,27 @@ input {
     transform: rotate(30deg);
     transform-origin: 50% 170px;
     margin-left: -75px;
-    animation: push-body 3s linear infinite;
   }
 
   [class^="stick-figure__arm"] {
-    animation: push-arm 3s linear infinite;
+    transform: rotate(0deg);
 
     &:after {
       transform: rotate(-90deg);
-      animation: push-arm-a 3s linear infinite;
+    }
+  }
+
+  &.animating {
+    .stick-figure {
+      animation: push-body 3s linear infinite;
+    }
+
+    [class^="stick-figure__arm"] {
+      animation: push-arm 3s linear infinite;
+
+      &:after {
+        animation: push-arm-a 3s linear infinite;
+      }
     }
   }
 }

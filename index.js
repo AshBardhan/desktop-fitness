@@ -86,7 +86,7 @@ function setWorkoutCountDown() {
 function switchToNextExercise(isRestNeeded) {
     if (isRestNeeded) {
         $('#exercise-options').addClass('disabled');
-        $('#fitness-exercise').removeClass().addClass('exercise--rest');
+        $('#fitness-exercise').removeClass('animating').addClass('exercise--rest');
         $('#exercise-text').text('Take Rest');
         var restCount = 5;
 
@@ -124,7 +124,7 @@ function getGreetingsText() {
 function onExerciseChange(exerciseIndex) {
     var exercise = exerciseList[exerciseIndex];
 
-    $('#fitness-exercise').removeClass().addClass('exercise--' + exercise.id);
+    $('#fitness-exercise').removeClass().addClass('animating  exercise--' + exercise.id);
     $('#exercise-text').text(exercise.name);
     $('#exercise-options').removeClass();
     $('.stick-figure').removeClass('stick-figure--side');
@@ -313,6 +313,8 @@ function addEventListeners() {
     $('#btn-pause').on('click', function () {
         isPaused = !isPaused;
         $(this).text(isPaused ? 'Resume' : 'Pause');
+        $('#fitness-exercise').toggleClass('animating');
+        $('#btn-skip').toggleClass('disabled');
     });
 }
 
