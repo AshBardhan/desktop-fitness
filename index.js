@@ -145,13 +145,13 @@ function init() {
 
     if (!storedName) {
         $('#fitness-form').show();
-        $('#fitness-exercise').hide();
+        $('#fitness-exercise, #fitness-settings').hide();
     } else {
         $('#fitness-form').hide();
         $('#fitness-exercise').show().removeClass().addClass('exercise--hi');
         $('#exercise-text, #exercise-countdown').hide();
         $('#fitness-intro').show().text(getGreetingsText() + storedName + '!');
-        $('#fitness-options').show();
+        $('#fitness-options, #fitness-settings').show();
     }
 }
 
@@ -265,6 +265,7 @@ function addEventListeners() {
         if (storedName) {
             localStorage.setItem('name', JSON.stringify(storedName));
             $('input').val('');
+            $('#fitness-settings').show();
             init();
         }
     });
