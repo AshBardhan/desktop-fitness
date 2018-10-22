@@ -22,7 +22,7 @@ function createWindow() {
     mainWindow = new BrowserWindow({width: 1280, height: 800})
 
     // and load the index.html of the app.
-    mainWindow.loadURL('http://localhost:8000/');
+    mainWindow.loadFile('index.html');
     isAppFocused = true;
 
     // Open the DevTools.
