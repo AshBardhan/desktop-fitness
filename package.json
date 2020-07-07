@@ -19,7 +19,7 @@
     "grunt-sass": "^2.0.0"
   },
   "dependencies": {
-    "electron": "^3.0.5"
+    "electron": "^7.2.4"
   },
   "repository": {
     "type": "git",
