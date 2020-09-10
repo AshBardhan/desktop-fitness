@@ -1,16 +1,10 @@
-# Created by http://gitignore.io
-app.css
+# IDE specific templates
+.idea/
+*.iml
+.vs/
 
-### SublimeText ###
-# SublimeText project files
-*.sublime-*
-
-##vim related
-*.swp
-*.swo
-
-### OSX ###
-.DS_Store
+## macOS template
+*.DS_Store
 .AppleDouble
 .LSOverride
 Icon
@@ -18,14 +12,18 @@ Icon
 # Thumbnails
 ._*
 
-### PhpStorm / IntellJ IDEA ###
-.idea/
-*.iml
+# SublimeText project files
+*.sublime-*
 
-### Bower Related ###
+## vim related
+*.swp
+*.swo
+
+## File dependencies
+node_modules/
+*.log
 bower_components
-
-### Node/Grunt/npm Related ###
-node_modules
-npm-debug.log
 .grunt
+
+## Deployment
+app.css
