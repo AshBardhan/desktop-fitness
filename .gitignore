@@ -22,7 +22,6 @@ Icon
 ## File dependencies
 node_modules/
 *.log
-bower_components
 .grunt
 
 ## Deployment
