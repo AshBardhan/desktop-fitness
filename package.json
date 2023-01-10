@@ -15,11 +15,11 @@
   "license": "ISC",
   "devDependencies": {
     "grunt": "~0.4.1",
-    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-watch": "~1.1.0",
     "grunt-sass": "^2.0.0"
   },
   "dependencies": {
-    "electron": "^7.2.4",
+    "electron": "^22.0.0",
     "jquery": "^3.6.0"
   },
   "repository": {
